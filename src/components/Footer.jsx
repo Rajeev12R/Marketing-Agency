@@ -20,71 +20,73 @@ const Footer = () => {
   )}&body=${encodeURIComponent(body)}`;
 
   return (
-    <footer className="bg-black text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-[#070709] text-[#9a9ab0] border-t border-white/5 py-12 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#818cf8]/10 to-transparent pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Logo and social */}
-          <div className="col-span-1 md:col-span-2">
-            <Link to="/" className="text-2xl font-bold">
-              WIDE TAKE
+          <div className="col-span-1 md:col-span-2 space-y-6">
+            <Link to="/" className="text-2xl font-bold tracking-widest font-display text-white uppercase">
+              WIDE TAKE<span className="text-[#818cf8]">.</span>
             </Link>
-            <p className="mt-4 text-gray-400 max-w-md">
-              Transforming loose ends into powerful brand stories that resonate with your audience.
+            <p className="text-[#9a9ab0] max-w-sm text-sm leading-relaxed font-light">
+              Transforming brand complexity into powerful digital narrative sequences that maximize customer conversion.
             </p>
-            <div className="flex space-x-4 mt-6">
+            <div className="flex space-x-3">
               <a
                 href="#"
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-[#818cf8] hover:bg-white/10 transition-all"
               >
-                <Instagram className="h-6 w-6" />
+                <Instagram className="h-5 w-5" />
               </a>
               <a
                 href="https://www.linkedin.com/in/volt-studios/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-[#818cf8] hover:bg-white/10 transition-all"
               >
-                <Linkedin className="h-6 w-6" />
+                <Linkedin className="h-5 w-5" />
               </a>
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-[#818cf8] hover:bg-white/10 transition-all"
               >
-                <FaWhatsapp className="h-6 w-6" />
+                <FaWhatsapp className="h-5 w-5" />
               </a>
               <a
                 href={mailtoUrl}
-                className="text-gray-400 hover:text-green-500 transition-colors"
+                className="p-2 rounded-lg bg-white/5 text-slate-400 hover:text-[#818cf8] hover:bg-white/10 transition-all"
               >
-                <Mail className="h-6 w-6" />
+                <Mail className="h-5 w-5" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Agency</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Agency
+                <Link to="/" className="hover:text-[#818cf8] transition-colors">
+                  Overview
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Our Team
+                <Link to="/about" className="hover:text-[#818cf8] transition-colors">
+                  Meet the Team
                 </Link>
               </li>
               <li>
-                <Link to="/client-portfolio" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Our Work
+                <Link to="/client-portfolio" className="hover:text-[#818cf8] transition-colors">
+                  Case Studies
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Contact
+                <Link to="/contact" className="hover:text-[#818cf8] transition-colors">
+                  Get in Touch
                 </Link>
               </li>
             </ul>
@@ -92,24 +94,39 @@ const Footer = () => {
 
           {/* Resources */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-2">
+            <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-6">Directory</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <Link to="/blog" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Blog
+                <Link to="/blog" className="hover:text-[#818cf8] transition-colors">
+                  Insights Blog
                 </Link>
               </li>
               <li>
-                <Link to="/services" className="text-gray-400 hover:text-green-500 transition-colors">
-                  Services
+                <Link to="/services" className="hover:text-[#818cf8] transition-colors">
+                  Services Index
+                </Link>
+              </li>
+              <li>
+                <Link to="/how-we-work" className="hover:text-[#818cf8] transition-colors">
+                  Execution Model
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin" className="hover:text-[#818cf8] transition-colors">
+                  Lead Center
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <p className="text-gray-400 text-center">© {currentYear} WIDE TAKE. All rights reserved.</p>
+        <div className="border-t border-white/5 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs">
+          <p className="text-slate-500">© {currentYear} WIDE TAKE. Engineered in 2026.</p>
+          <div className="flex gap-4 text-slate-500">
+            <Link to="/admin" className="hover:text-slate-300">Admin Login</Link>
+            <span>•</span>
+            <span>Security Hashed</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -1,26 +1,130 @@
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Great+Vibes&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Style+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@200;300;400;500;600;700;800&family=Inter:wght@200;300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-dark: #070709;
+  --bg-dark-light: #0f0f13;
+  --bg-panel: #15151c;
+  --accent-indigo: #4f46e5;
+  --accent-indigo-hover: #4338ca;
+  --accent-cyan: #06b6d4;
+  --text-white: #ffffff;
+  --text-muted: #9a9ab0;
+  --border-subtle: #1e1e24;
+}
+
+* {
+  font-family: "Outfit", "Inter", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.font-display {
+  font-family: "Playfair Display", Georgia, serif;
+}
 
 body {
-  background-color: #f6f6f6;
-}
-*{
-font-family: "Inter", serif;
-}
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-250px * 5));
-  }
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-.animate-scroll {
-  animation: scroll 40s linear infinite;
+/* Custom Minimalist Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1e26;
+  border-radius: 2.5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-indigo);
+}
+
+/* Bento Cards */
+.bento-card {
+  background: var(--bg-dark-light);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bento-card:hover {
+  border-color: rgba(79, 70, 229, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+.bento-card-active {
+  border-color: rgba(79, 70, 229, 0.3);
+  background: linear-gradient(145deg, var(--bg-dark-light) 0%, rgba(79, 70, 229, 0.01) 100%);
+}
+
+.bento-card-active:hover {
+  border-color: rgba(79, 70, 229, 0.5);
+}
+
+/* Pro buttons */
+.btn-indigo {
+  background: var(--accent-indigo);
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.btn-indigo:hover {
+  background: var(--accent-indigo-hover);
+  box-shadow: 0 0 20px rgba(79, 70, 229, 0.25);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.01);
+  color: var(--text-white);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* UI badges */
+.badge-indigo {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #818cf8;
+  background: rgba(79, 70, 229, 0.1);
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  padding: 6px 14px;
+  border-radius: 9999px;
+}
+
+/* Toastify custom style */
+.Toastify__toast {
+  background-color: var(--bg-dark-light) !important;
+  color: var(--text-white) !important;
+  border: 1px solid var(--border-subtle) !important;
+  border-radius: 12px !important;
+}
+
+.Toastify__toast-theme--dark {
+  background: var(--bg-dark-light) !important;
+}

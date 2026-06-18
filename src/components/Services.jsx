@@ -1,83 +1,111 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Video, Paintbrush, Globe, Search, Briefcase, Users, MessageSquare } from "lucide-react"
+import { Globe, Video, Search, ShieldCheck, Cpu, Play } from "lucide-react"
 
-const ServiceCard = ({ icon: Icon, title, description, link }) => (
-  <motion.div whileHover={{ scale: 1.05 }} className="bg-white rounded-lg p-8 shadow-lg">
-    <Icon className="w-12 h-12 text-purple-600 mb-4" />
-    <h3 className="text-2xl font-bold text-gray-900 mb-4">{title}</h3>
-    <p className="text-gray-600 mb-6">{description}</p>
-    {/* <Link to={link} className="text-purple-600 font-medium hover:text-purple-800 transition-colors">
-      Know More &rarr;
-    </Link> */}
+const OutcomeCard = ({ icon: Icon, title, type, stack, description, metric, className }) => (
+  <motion.div 
+    whileHover={{ y: -4 }}
+    transition={{ duration: 0.3 }}
+    className={`bento-card flex flex-col justify-between ${className}`}
+  >
+    <div className="space-y-6">
+      <div className="flex justify-between items-start">
+        <div className="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+          <Icon className="w-5 h-5" />
+        </div>
+        <span className="text-[9px] uppercase font-bold tracking-widest text-[#818cf8] bg-indigo-600/10 border border-indigo-500/15 px-2.5 py-1 rounded-md">
+          {type}
+        </span>
+      </div>
+      
+      <div>
+        <h3 className="font-display text-xl sm:text-2xl font-normal text-white mb-2 uppercase tracking-tight">
+          {title}
+        </h3>
+        <p className="text-[#9a9ab0] text-xs leading-relaxed font-light mb-4">{description}</p>
+      </div>
+    </div>
+
+    <div className="border-t border-white/5 pt-4 mt-6 flex flex-wrap justify-between items-center gap-3">
+      <div className="flex gap-1">
+        {stack.map((s, index) => (
+          <span key={index} className="text-[8px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 px-2 py-0.5 rounded border border-white/5">
+            {s}
+          </span>
+        ))}
+      </div>
+      <div className="text-[10px] font-bold text-emerald-400 flex items-center gap-1 uppercase tracking-wider">
+        <ShieldCheck className="h-3.5 w-3.5" />
+        {metric}
+      </div>
+    </div>
   </motion.div>
 )
 
 const Services = () => {
-  const services = [
-    {
-      icon: Video,
-      title: "Video Editing",
-      description: "Video editing isn't just about cropping clips- It's about storytelling.",
-      link: "/services/video-editing",
-    },
-    {
-      icon: Paintbrush,
-      title: "Graphics Design",
-      description: "Create designs that graphically inclines with your ideas",
-      link: "/services/graphics-design",
-    },
+  const outcomes = [
     {
       icon: Globe,
-      title: "Web Development",
-      description: "Develop websites that are fast, intuitive, and designed for success.",
-      link: "/services/web-development",
+      type: "Infrastructure",
+      title: "Conversion Engines",
+      description: "Custom React.js applications configured with Rollup bundle code-splitting and asset compression. Delivers lightning-fast loads and high client engagement metrics.",
+      stack: ["React.js", "Vite", "Tailwind CSS"],
+      metric: "98 PageSpeed TTFB",
+      className: "md:col-span-2 min-h-[280px]"
+    },
+    {
+      icon: Cpu,
+      type: "Backend Integration",
+      title: "REST APIs & Middleware",
+      description: "Express.js endpoints protected by validation middleware sanitization and JWT header authentication.",
+      stack: ["Node.js", "Express", "JWT Auth"],
+      metric: "0 Security Incidents",
+      className: "md:col-span-1 min-h-[280px]"
+    },
+    {
+      icon: Video,
+      type: "Asset Production",
+      title: "Video Curation Deck",
+      description: "High-octane reels, visual layouts, and sound edits designed to target short-attention spans on social media grids.",
+      stack: ["Cinema shoots", "Sound FX", "Color Grading"],
+      metric: "300k+ Reel Views",
+      className: "md:col-span-1 min-h-[280px]"
     },
     {
       icon: Search,
-      title: "SEO",
-      description: "Your brand deserves the spotlight! We turn whispers into roars with SEO that dominates.",
-      link: "/services/seo",
-    },
-    {
-      icon: Briefcase,
-      title: "Branding",
-      description: "Build a brand that turns heads, builds recognition, and stands out in any market.",
-      link: "/services/branding",
-    },
-    {
-      icon: Users,
-      title: "Consultancy",
-      description: "Get expert advice and strategies to take your business to the next level.",
-      link: "/services/consultancy",
-    },
-    {
-      icon: MessageSquare,
-      title: "Social Media Management",
-      description: "Turn followers into fans and grow your brand with strategic social media engagement.",
-      link: "/services/social-media",
-    },
+      type: "Visibility",
+      title: "Visibility Accelerators",
+      description: "On-page search optimization isolating keyword conflicts and injecting dynamic meta schemas. Designed to capture organic reach and increase citations from AI/LLM search engine layers.",
+      stack: ["SEO Auditing", "Meta Schema", "GA4 Logs"],
+      metric: "+120% Click Rates",
+      className: "md:col-span-2 min-h-[280px]"
+    }
   ]
 
   return (
-    <div className="bg-gray-100 py-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#070709] py-24 border-t border-white/5 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-left mb-16 max-w-xl"
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We offer a comprehensive suite of digital solutions to help your business thrive in the online world.
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#818cf8] bg-indigo-600/10 border border-indigo-500/15 px-4 py-1.5 rounded-md">
+            Capabilities Matrix
+          </span>
+          <h2 className="font-display text-3xl sm:text-5xl font-normal text-white mt-6 mb-4 uppercase tracking-tight leading-none">
+            Outcome-Driven Infrastructure
+          </h2>
+          <p className="text-[#9a9ab0] text-sm font-light leading-relaxed">
+            We do not just build layouts. We design secure full-stack infrastructures, write search-optimized content, and produce cinematic video assets.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard key={index} {...service} />
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {outcomes.map((o, index) => (
+            <OutcomeCard key={index} {...o} />
           ))}
         </div>
       </div>
@@ -86,4 +114,3 @@ const Services = () => {
 }
 
 export default Services
-

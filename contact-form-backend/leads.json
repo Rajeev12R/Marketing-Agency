@@ -1,0 +1,50 @@
+[
+  {
+    "id": "lead-1",
+    "firstName": "Aarav",
+    "lastName": "Sharma",
+    "email": "aarav@sparsh.edu.in",
+    "company": "Sparsh World School",
+    "website": "sparshworldschool.com",
+    "message": "Looking to rebuild our school website, enhance branding guidelines, and setup regular social media posts.",
+    "newsletter": true,
+    "status": "New",
+    "date": "2026-06-10T14:30:00.000Z"
+  },
+  {
+    "id": "lead-2",
+    "firstName": "David",
+    "lastName": "Miller",
+    "email": "david@sunnyside.com",
+    "company": "Sunny Side Up",
+    "website": "sunnysideup.cafe",
+    "message": "Need 10 high-quality promotional reels/videos edited for our new summer breakfast menu launch.",
+    "newsletter": false,
+    "status": "In Progress",
+    "date": "2026-06-12T09:15:00.000Z"
+  },
+  {
+    "id": "lead-3",
+    "firstName": "Sophia",
+    "lastName": "Chen",
+    "email": "sophia@gupshup.co",
+    "company": "GupShup @ chhat",
+    "website": "gupshupchhat.in",
+    "message": "Looking for content creation and social media management for our rooftop lounge in Jaipur.",
+    "newsletter": true,
+    "status": "Contacted",
+    "date": "2026-06-14T18:45:00.000Z"
+  },
+  {
+    "id": "lead-4",
+    "firstName": "Marcus",
+    "lastName": "Vance",
+    "email": "marcus@retromini.io",
+    "company": "Retro Mini Cafe",
+    "website": "retromini.io",
+    "message": "Interested in web development services for a simple landing page and branding guidelines.",
+    "newsletter": false,
+    "status": "Closed",
+    "date": "2026-06-15T11:00:00.000Z"
+  }
+]

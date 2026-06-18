@@ -1,69 +1,71 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { gsap } from "gsap";
-import GlowingBackground from "./GlowingBackground";
+import { motion } from "framer-motion";
+import Seo from "./Seo";
+import StrategyConfigurator from "./StrategyConfigurator";
+import PageSpeedSimulator from "./PageSpeedSimulator";
 
 const Hero = () => {
-  const textRef = useRef(null);
-  const words = ["Digital Success", "Digital World", "Digital Progress"];
-  let index = 0;
-
-  useEffect(() => {
-    const changeText = () => {
-      gsap.to(textRef.current, {
-        y: -130,
-        opacity: 0,
-        duration: 0.1,
-        onComplete: () => {
-          textRef.current.innerText = words[index];
-          index = (index + 1) % words.length;
-          gsap.fromTo(
-            textRef.current,
-            { y: 60, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.1}
-          );
-        },
-      });
-    };
-    const interval = setInterval(changeText, 2000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="relative bg-black min-h-screen flex items-center overflow-hidden">
-      <GlowingBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-purple-900/30 to-black pointer-events-none" />
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 sm:py-48 lg:py-56">
-        <div className="text-center">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
-            Clipping your dreams of <br />
-            <span className="">
-              <span ref={textRef} className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                Digital Success
-              </span>
-            </span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Turning digital clutter into seamless strategy - just like a WIDE TAKE, keeping things neat and effective! <br />
-            Let's create something extraordinary together.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Link
-              to="/contact"
-              className="inline-block bg-purple-600 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-purple-700 transition-colors transform hover:scale-105 shadow-lg hover:shadow-xl"
+    <div className="relative bg-[#070709] min-h-screen pt-28 pb-16 overflow-hidden">
+      <Seo 
+        title="Bento Strategy & Web Engineering Agency" 
+        description="Wide Take is an elite, full-service digital marketing and creative agency. We design conversion-engineered web layouts, produce short video campaigns, and construct high-performance brand architectures."
+        keywords="marketing agency, web development, SEO consulting, branding strategy, video editing"
+      />
+      
+      {/* Ambient Glow */}
+      <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/5 blur-[120px] animate-ambient-glow pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-cyan-600/5 blur-[100px] animate-ambient-glow pointer-events-none" style={{ animationDelay: "-4s" }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        {/* Split Hero */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+          {/* Left: Headline */}
+          <div className="lg:col-span-7 text-left space-y-8">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="badge-indigo inline-block"
             >
-              Get Started
-            </Link>
-            <Link
-              to="/client-portfolio"
-              className="inline-block bg-transparent text-white px-8 py-4 rounded-full text-lg font-medium border-2 border-white hover:bg-white hover:text-black transition-colors transform hover:scale-105 shadow-lg hover:shadow-xl"
-            >
-              View Our Work
-            </Link>
+              WIDE TAKE AGENCY • EST. Feb 2025
+            </motion.div>
+
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-normal text-white leading-[1.1] tracking-tight">
+              We engineer clean <br className="hidden sm:inline" />
+              <span className="italic font-semibold text-[#818cf8]">digital growth</span> <br />
+              systems.
+            </h1>
+
+            <p className="text-[#9a9ab0] text-sm sm:text-base max-w-lg leading-relaxed font-light">
+              Combining conversion code with story video assets. Just like a <span className="text-white font-medium">WIDE TAKE</span> lens, keeping your code structures, design elements, and organic funnels neat and high-performance.
+            </p>
+
+            <div className="flex gap-4">
+              <Link
+                to="/services"
+                className="btn-outline px-6 py-3.5 rounded-lg text-xs font-bold uppercase tracking-wider"
+              >
+                Inspect Capabilities
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: Interactive Configurator */}
+          <div className="lg:col-span-5 w-full">
+            <StrategyConfigurator />
           </div>
         </div>
+
+        {/* Audit Simulator Row */}
+        <div className="mt-16 max-w-4xl mx-auto border-t border-white/5 pt-16">
+          <PageSpeedSimulator />
+        </div>
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+      
+      {/* Decorative Bottom Bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-white/5" />
     </div>
   );
 };

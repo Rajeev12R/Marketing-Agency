@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import GlowingBackground from "../components/GlowingBackground";
+import Seo from "../components/Seo";
 import sparshworldschool from "../assets/school.png";
 
 // Import all images and videos for the slideshow
@@ -35,8 +35,6 @@ import retroImage1 from "../assets/retro_assets/1.jpg";
 import retroImage2 from "../assets/retro_assets/2.jpg";
 import retroImage3 from "../assets/retro_assets/3.jpg";
 import retroImage4 from "../assets/retro_assets/4.jpg";
-// import retroImage5 from "../assets/retro_assets/5.jpg";
-// import retroImage6 from "../assets/retro_assets/6.jpg";
 import retroVideo1 from "../assets/retro_assets/1.mp4";
 
 import retroMiniImage2 from "../assets/retromini_assets/2.jpg";
@@ -53,26 +51,33 @@ import satvaImage3 from "../assets/satva_assets/3.jpg";
 import satvaImage4 from "../assets/satva_assets/4.jpg";
 
 const LogoScroll = () => {
-  const logos = [
-    { name: "sparshworldschool", image: sparshworldschool },
+  const clients = [
+    "SPARSH WORLD SCHOOL", "SUNNY SIDE UP", "GUPSHUP @ CHHAT", 
+    "RETRO CAFE", "RETRO MINI", "SATVA LOUNGE"
   ];
 
+  const tickerItems = [...clients, ...clients, ...clients, ...clients];
+
   return (
-    <div className="w-full overflow-hidden bg-black py-12">
-      <motion.div 
-        className="flex justify-center"
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      >
-        {[...logos].map((logo, index) => (
-          <motion.img
-            key={index}
-            src={logo.image || "/placeholder.svg"}
-            alt={logo.name}
-            className="h-14 object-contain grayscale hover:grayscale-0 transition-all duration-300 mx-8"
-            whileHover={{ scale: 1.2 }}
-          />
-        ))}
-      </motion.div>
+    <div className="w-full overflow-hidden bg-black/20 border-y border-white/5 py-8 relative z-10 mb-16">
+      <div className="flex whitespace-nowrap">
+        <motion.div 
+          className="flex gap-16 text-slate-500 font-mono text-[10px] font-bold tracking-[0.2em] items-center animate-infinite-scroll"
+          animate={{ x: [0, -800] }}
+          transition={{ 
+            ease: "linear", 
+            duration: 25, 
+            repeat: Infinity 
+          }}
+        >
+          {tickerItems.map((name, index) => (
+            <div key={index} className="flex items-center gap-4">
+              <span>{name}</span>
+              <span className="w-1 h-1 rounded-full bg-indigo-500" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 };
@@ -87,13 +92,19 @@ const ImageSlider = ({ images, videos }) => {
     setCurrentIndex(index);
   };
 
-  const goToPrevious = () => {
+  const goToPrevious = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? items.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
   };
 
-  const goToNext = useCallback(() => {
+  const goToNext = useCallback((e) => {
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
     const isLastSlide = currentIndex === items.length - 1;
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
@@ -125,7 +136,7 @@ const ImageSlider = ({ images, videos }) => {
 
   return (
     <div 
-      className="relative w-full h-full"
+      className="relative w-full h-full min-h-[220px] overflow-hidden"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -142,14 +153,14 @@ const ImageSlider = ({ images, videos }) => {
           {index < videos.length ? (
             <video
               src={item}
-              className="w-full h-full object-contain object-center"
+              className="w-full h-full object-cover"
               autoPlay
               loop
               muted
               playsInline
             />
           ) : (
-            <img src={item || "/placeholder.svg"} alt={`Slide ${index + 1}`} className="w-full h-full object-contain object-center" />
+            <img src={item || "/placeholder.svg"} alt={`Slide ${index + 1}`} className="w-full h-full object-cover" />
           )}
         </motion.div>
       ))}
@@ -157,33 +168,36 @@ const ImageSlider = ({ images, videos }) => {
       {/* Navigation Buttons */}
       <motion.button
         onClick={goToPrevious}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all"
-        whileHover={{ scale: 1.1 }}
+        className="absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/60 text-white p-1.5 rounded-md hover:bg-indigo-600 hover:text-white transition-all border border-white/5 z-20"
+        whileHover={{ scale: 1.05 }}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-3.5 h-3.5">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
         </svg>
       </motion.button>
       <motion.button
         onClick={goToNext}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all"
-        whileHover={{ scale: 1.1 }}
+        className="absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/60 text-white p-1.5 rounded-md hover:bg-indigo-600 hover:text-white transition-all border border-white/5 z-20"
+        whileHover={{ scale: 1.05 }}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-3.5 h-3.5">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
         </svg>
       </motion.button>
 
       {/* Navigation Indicator */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center">
+      <div className="absolute bottom-4 left-0 right-0 flex justify-center items-center gap-1 z-20">
         {items.map((_, index) => (
-          <motion.button
+          <button
             key={index}
-            onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full mx-1 transition-all ${
-              index === currentIndex ? 'bg-white scale-125' : 'bg-gray-400'
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              goToSlide(index);
+            }}
+            className={`h-0.5 rounded-full transition-all duration-300 ${
+              index === currentIndex ? 'bg-[#818cf8] w-4' : 'bg-white/20 w-1'
             }`}
-            whileHover={{ scale: 1.2 }}
           />
         ))}
       </div>
@@ -191,196 +205,212 @@ const ImageSlider = ({ images, videos }) => {
   );
 };
 
-const CaseStudy = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  return (
-    <motion.div
-      className="grid grid-cols-1 lg:grid-cols-2 gap-0"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      {[
-        {
-          title: "Sparsh World School, Suratgarh",
-          category: "INTERNATIONAL SCHOOL",
-          description: "Logo Designing • Content Writing • Social Media Management • Branding • Post Creation • Taglines",
-          images: [
-            schoolImage1,
-            schoolImage2,
-            schoolImage3,
-            schoolImage4,
-            schoolImage5,
-            schoolImage6,
-            schoolImage7,
-            schoolImage8,
-            schoolImage9,
-            schoolImage10,
-          ],
-          videos: [],
-        },
-        {
-          title: "Sunny side up",
-          category: "RESTAURANT AND FINE DINING",
-          description: "Video Editing • Video Shoots",
-          images: [
-            sunnyImage2,
-            sunnyImage3,
-            sunnyImage4,
-            sunnyImage5,
-          ],
-          videos: [sunnyVideo1],
-        },
-        {
-          title: "GupShup @ chhat",
-          category: "ROOFTOP DINING",
-          description: "Video Editing • Video Shoots",
-          images: [
-            gupshupImage2,
-            gupshupImage3,
-            gupshupImage4,
-            gupshupImage5,
-            gupshupImage6,
-            gupshupImage7,
-          ],
-          videos: [gupshupVideo1],
-        },
-        {
-          title: "Retro",
-          category: "CAFE VENTURE",
-          description: "Video Editing • Video Shoots • Post Creation • Graphics Designing",
-          images: [
-            retroImage1,
-            retroImage2,
-            retroImage3,
-            retroImage4,
-          ],
-          videos: [retroVideo1],
-        },
-        {
-          title: "Retro Mini",
-          category: "MINI CAFE",
-          description: "Video Editing • Video Shoots • Post Creation • Graphics Designing",
-          images: [
-            retroMiniImage2,
-            retroMiniImage3,
-            retroMiniImage4,
-            retroMiniImage5,
-            retroMiniImage6,
-            retroMiniImage7,
-          ],
-          videos: [retroMiniVideo1],
-        },
-        {
-          title: "Satva",
-          category: "BAR & LOUNGE",
-          description: "Video Editing • Video Shoots",
-          images: [
-            satvaImage1,
-            satvaImage2,
-            satvaImage3,
-            satvaImage4,
-          ],
-          videos: [],
-        },
-      ].map((study, index) => (
-        <React.Fragment key={index}>
-          <motion.div
-            className="bg-black p-12 lg:p-32 flex flex-col justify-center"
-            variants={itemVariants}
-          >
-            <span className="text-sm font-medium text-gray-400 mb-6">
-              {study.category}
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 uppercase">
-              {study.title}
-            </h2>
-            <p className="text-gray-400 mb-8">
-              {study.description}
-            </p>
-          </motion.div>
-          <motion.div
-            className="h-[500px] lg:h-auto flex items-center justify-center p-12"
-            variants={itemVariants}
-          >
-            <ImageSlider images={study.images} videos={study.videos} />
-          </motion.div>
-        </React.Fragment>
-      ))}
-    </motion.div>
-  );
-};
-
 const Portfolio = () => {
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  const categories = [
+    { id: "All", label: "All Cases" },
+    { id: "Education", label: "Education" },
+    { id: "Dining", label: "Dining & Lounges" },
+    { id: "Cafe", label: "Cafe Franchises" }
+  ];
+
+  const cases = [
+    {
+      title: "Sparsh World School",
+      category: "INTERNATIONAL EDUCATION BRAND",
+      filterTag: "Education",
+      description: "Implemented standard branding matrices, drafted unified school slogans, structured vector logo layouts, and organized monthly Facebook/Instagram grids.",
+      metrics: ["+180% Inquiries", "+98% Speed Load"],
+      images: [schoolImage1, schoolImage2, schoolImage3, schoolImage4, schoolImage5, schoolImage6, schoolImage7, schoolImage8, schoolImage9, schoolImage10],
+      videos: [],
+    },
+    {
+      title: "Sunny Side Up",
+      category: "RESTAURANT & FINE DINING",
+      filterTag: "Dining",
+      description: "Filmed high-definition culinary promo clips and edited viral reels targeting short-attention span audiences.",
+      metrics: ["300k+ Reel Views", "+35% Registrations"],
+      images: [sunnyImage2, sunnyImage3, sunnyImage4, sunnyImage5],
+      videos: [sunnyVideo1],
+    },
+    {
+      title: "GupShup @ chhat",
+      category: "ROOFTOP LOUNGE",
+      filterTag: "Dining",
+      description: "Scoped promotional reels and managed grid aesthetics to highlight weekend bookings and menu launches.",
+      metrics: ["250k+ Social Reach", "Sold Out Weekends"],
+      images: [gupshupImage2, gupshupImage3, gupshupImage4, gupshupImage5, gupshupImage6, gupshupImage7],
+      videos: [gupshupVideo1],
+    },
+    {
+      title: "Retro Cafe",
+      category: "CAFE VENTURE",
+      filterTag: "Cafe",
+      description: "Produced local video campaigns and graphical content grids to drive footfall and menu item awareness.",
+      metrics: ["150k+ Social Reach", "+20% Footfalls"],
+      images: [retroImage1, retroImage2, retroImage3, retroImage4],
+      videos: [retroVideo1],
+    },
+    {
+      title: "Retro Mini",
+      category: "MINI CAFE FRANCHISE",
+      filterTag: "Cafe",
+      description: "Developed visual identity templates and promotional materials supporting regional franchise launch schedules.",
+      metrics: ["120k+ Local Reach", "Franchise Launched"],
+      images: [retroMiniImage2, retroMiniImage3, retroMiniImage4, retroMiniImage5, retroMiniImage6, retroMiniImage7],
+      videos: [retroMiniVideo1],
+    },
+    {
+      title: "Satva Lounge",
+      category: "BAR & LOUNGE",
+      filterTag: "Dining",
+      description: "Coordinated video editing assets and creative direction guidelines for event promotions.",
+      metrics: ["80k+ Impressions", "Unified Branding"],
+      images: [satvaImage1, satvaImage2, satvaImage3, satvaImage4],
+      videos: [],
+    },
+  ];
+
+  const filteredCases = activeFilter === "All" 
+    ? cases 
+    : cases.filter(c => c.filterTag === activeFilter);
+
+  const getGridSpan = (index, total) => {
+    if (activeFilter !== "All") return "col-span-1";
+    if (index === 0) return "lg:col-span-2 lg:row-span-1";
+    if (index === 5) return "lg:col-span-2 lg:row-span-1";
+    return "col-span-1";
+  };
+
   return (
-    <div className="bg-black min-h-screen">
-      <GlowingBackground className="relative" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
+    <div className="bg-[#070709] min-h-screen relative overflow-hidden">
+      <Seo 
+        title="Client Portfolio" 
+        description="Browse through WIDE TAKE marketing achievements, featuring restaurant shoots, international school branding, cafe campaigns, and web assets."
+        keywords="marketing case studies, school branding, restaurant campaigns, video curation, cafe marketing"
+      />
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center max-w-4xl mx-auto"
+          className="text-left max-w-2xl"
         >
-          <motion.span
-            className="text-sm font-medium text-white/60 px-6 py-2 outline-orange-100 outline max-w-fit mx-auto rounded-2xl mb-6 block"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
+          <motion.div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600/10 border border-indigo-500/15 text-[10px] font-bold tracking-widest text-[#818cf8] uppercase mb-8"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
           >
-            AGENCY CLIENT PORTFOLIO
-          </motion.span>
+            Case Archives
+          </motion.div>
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-7xl font-bold text-white mb-8"
-            initial={{ opacity: 0, y: 20 }}
+            className="font-display text-4xl sm:text-6xl lg:text-7xl font-normal text-white mb-8 tracking-tight uppercase leading-none"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
           >
-            Client satisfaction is our success
+            CLIENT OUTCOMES & METRICS
           </motion.h1>
           <motion.p
-            className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto "
-            initial={{ opacity: 0, y: 20 }}
+            className="text-[#9a9ab0] text-sm leading-relaxed font-light mb-10"
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
           >
-            Discover how businesses of all sizes, from local cafés to
-            international schools, have partnered with{" "}
-            <span className="text-white font-bold">WIDE TAKE</span> – the
-            marketing agency that drives growth and success.
+            Explore how cafe ventures, lounge systems, and educational networks leverage the execution model at <span className="text-white font-medium">WIDE TAKE</span> to scale visibility.
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.8 }}
-            className="flex justify-center" // Center the button
+            transition={{ delay: 0.8, duration: 0.8 }}
           >
             <Link
               to="/contact"
-              className="absolute inline-block bg-purple-600 hover:bg-purple-700 text-white px-8 py-4 rounded-full cursor-pointer text-lg font-medium transition-colors"
+              className="btn-indigo px-8 py-4 rounded-lg text-xs font-bold"
             >
-              WORK WITH US
+              Start Engagement
             </Link>
           </motion.div>
         </motion.div>
       </div>
 
       <LogoScroll />
-      <CaseStudy />
+
+      {/* Main Grid Cases Redesign */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 relative z-10">
+        
+        {/* Filters */}
+        <div className="flex flex-wrap gap-2 justify-start items-center mb-12 border-b border-white/5 pb-6">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveFilter(cat.id)}
+              className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider border transition-all ${
+                activeFilter === cat.id
+                  ? "bg-indigo-600 border-indigo-500 text-white font-bold"
+                  : "bg-[#0f0f13] border-white/5 text-slate-400 hover:bg-white/5 hover:text-white"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Dynamic Bento Grid */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          layout
+        >
+          {filteredCases.map((study, index) => {
+            const spanClass = getGridSpan(index, filteredCases.length);
+            return (
+              <motion.div
+                key={study.title}
+                layout
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className={`bento-card p-0 flex flex-col justify-between group overflow-hidden ${spanClass}`}
+              >
+                {/* Media Container */}
+                <div className="relative aspect-[16/10] overflow-hidden bg-black/40 border-b border-white/5">
+                  <span className="absolute top-4 left-4 z-20 text-[9px] font-bold tracking-widest text-[#818cf8] bg-indigo-600/10 border border-indigo-500/15 px-2.5 py-1 rounded-md">
+                    {study.category}
+                  </span>
+                  <ImageSlider images={study.images} videos={study.videos} />
+                </div>
+
+                {/* Text Details */}
+                <div className="p-8 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="font-display text-2xl font-normal text-white mb-4 uppercase tracking-tight group-hover:text-[#818cf8] transition-colors leading-tight">
+                      {study.title}
+                    </h3>
+                    <p className="text-[#9a9ab0] text-xs leading-relaxed font-light mb-8">
+                      {study.description}
+                    </p>
+                  </div>
+                  
+                  {/* Performance Indicators */}
+                  <div className="flex gap-2 border-t border-white/5 pt-6 mt-auto">
+                    {study.metrics.map((m, idx) => (
+                      <span 
+                        key={idx} 
+                        className="text-[10px] font-bold text-emerald-400 bg-emerald-500/5 border border-emerald-500/10 px-3.5 py-1.5 rounded-lg uppercase tracking-wider"
+                      >
+                        {m}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </div>
     </div>
   );
 };
